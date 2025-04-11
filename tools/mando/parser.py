@@ -32,19 +32,22 @@ def parse(exit_code, log, output):
     findings, infos = [], set()
     errors, fails = sb.parse_utils.errors_fails(exit_code, log)
     # Parses the output for common Python/Java/shell exceptions (returned in 'fails')
-
-    for line in log:
-        # For an example of the result see end of the file
-         if line.strip().startswith("Result: "):
-            try:
-                # Extract the JSON part from the line
-                result_json_str = line.strip()[len("Result: "):]
-                result_data = json.loads(result_json_str)
+    
+    
+    try:
+        with io.BytesIO(output) as o, tarfile.open(fileobj=o) as tar:
+            # access specific file
+            output = tar.extractfile("output.json").read()
+            
+            result_data = json.loads(output)
                 
-                if "messages" in result_data:
-                    infos.add(result_data["messages"])
-                
-                if "summaries" in result_data:
+            if "messages" in result_data:
+                infos.add(result_data["messages"])
+            
+            if "summaries" in result_data:
+                if result_data["summaries"] is None:
+                    errors.add("no result")
+                else:
                     for summary in result_data["summaries"]:
                         if summary.get("vulnerability", 0) == 1:
                             vuln_type = summary.get("type", "unknown")
@@ -65,11 +68,8 @@ def parse(exit_code, log, output):
                                 "line_end": max(code_lines) if code_lines else None
                             }
                             findings.append(finding)
-                            
-            except json.JSONDecodeError as e:
-                fails.add(f"Failed to parse result JSON: {e}")
-            except Exception as e:
-                fails.add(f"Unexpected error processing results: {e}")
+    except Exception as e:
+        fails.add(f"error parsing results: {e}")
 
     return findings, infos, errors, fails
 
