@@ -9,6 +9,18 @@
 SmartBugs is an extensible platform with a uniform interface to tools
 that analyse blockchain programs for weaknesses and other properties.
 
+## About the Fork
+
+Fork of [SmartBugs](https://github.com/smartbugs/smartbugs).
+
+As part of master thesis ***Machine learning for vulnerability detection in smart contracts. A comparison of approaches.*** we integrate selected ML-Based smart contract scanners into smartbugs 
+
+State of work:
+- Mando (Original) see [/tools/mando](./tools/mando/)
+- Mando (Modified Version) [/tools/mando-mod](./tools/mando-mod/)
+
+The rest of this README is taken over from the original repo.
+
 ## Features
 
 - *20 supported tools, 3 modes* for analysing Solidity source
