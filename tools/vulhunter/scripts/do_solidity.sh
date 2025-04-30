@@ -19,7 +19,7 @@ if [ -z "$SOLC_VERSION" ]; then
     exit 1
 fi
 
-CMD="python3 /app/main/main.py --contract $FILENAME --solc-version $SOLC_VERSION --filetype solidity --model-dir models --instance-len 10 --report /app/output.pdf --detectors reentrancy-eth"
+CMD="python3 /app/main/main.py --contract $FILENAME --solc-version $SOLC_VERSION --filetype solidity --model-dir models --instance-len 20 --report /app/output.pdf --detectors reentrancy-eth"
 
 echo "Executing $CMD"
 $CMD

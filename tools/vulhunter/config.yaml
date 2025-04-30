@@ -9,8 +9,8 @@ bin: scripts # folder with programs that will be accessible in the Docker contai
 solidity:
     entrypoint: "'$BIN/do_solidity.sh' '$FILENAME' '$TIMEOUT' '$BIN' '$MAIN'"
     solc: yes
+bytecode:
+    entrypoint: "'$BIN/do_bytecode.sh' '$FILENAME' '$TIMEOUT'"
 
-# bytecode:
-#     entrypoint: "'$BIN/do_bytecode.sh' '$FILENAME' '$TIMEOUT'"
 # runtime:
 #     entrypoint: "'$BIN/do_runtime.sh' '$FILENAME' '$TIMEOUT'"
