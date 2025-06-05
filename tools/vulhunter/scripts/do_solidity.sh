@@ -7,6 +7,7 @@ MAIN="$4"
 
 # export PATH="$BIN:$PATH"
 chmod +x "$BIN/solc"
+export SOLC_BIN="$BIN/solc"
 
 # Extract Solidity compiler version with error checking
 if ! SOLC_OUTPUT=$("$BIN/solc" --version); then
