@@ -33,6 +33,7 @@ def parse(exit_code, log, output):
     errors, fails = sb.parse_utils.errors_fails(exit_code, log)
     # Parses the output for common Python/Java/shell exceptions (returned in 'fails')
     
+    
     try:
         with io.BytesIO(output) as o, tarfile.open(fileobj=o) as tar:
             # access specific file
